@@ -1,12 +1,7 @@
 const validateEmail = (field, email) => {
-  if (!email)
-    return {
-      field,
-      error: !email ? "Kan inte vara tom" : undefined,
-    };
+  if (!email) return validateField(field, email);
 
-  const pattern =
-    /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
+  const pattern = /^([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+/;
 
   return {
     field,

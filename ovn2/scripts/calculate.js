@@ -64,6 +64,25 @@ const handleCalcPriceClick = (rows, sumRow) => {
   getTdChild(sumRow, 6).innerHTML = totalSum;
 };
 
+const checkForIllegalInputChars = (e) => {
+  if (
+    !(
+      (e.keyCode > 95 && e.keyCode < 106) ||
+      (e.keyCode > 47 && e.keyCode < 58) ||
+      e.keyCode == 8
+    )
+  ) {
+    return false;
+  }
+};
+
+const addValidationToAmountFields = (row) => {
+  const amountInputField = getTdChild(row, 5, "> input");
+  amountInputField.type = "number";
+  amountInputField.min = 0;
+  amountInputField.onkeydown = checkForIllegalInputChars;
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const content = document.querySelector("#content");
   const table = content.querySelector("#pricetable");
@@ -79,6 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   valueRows.forEach((row) => {
+    addValidationToAmountFields(row);
     row.appendChild(createRowSumValueElement(row));
   });
 
